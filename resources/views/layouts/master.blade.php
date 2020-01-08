@@ -13,6 +13,50 @@
     @yield('styles')
 </head>
 <body>
+<?php
+    /*
+
+if(DB::connection()->getDatabaseName())
+{
+    echo "Yes! successfully connected to the DB: " . DB::connection()->getDatabaseName();
+
+    try {
+        // localhost/netbeans/sale
+        // nastavitve za povezavo do PB
+        $options = array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_PERSISTENT => true,
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+        );
+
+        // objekt PDO
+
+
+        $db = new PDO("mysql:host=localhost;dbname=bookstoreDB", "root", "ep", $options);
+
+        # priprava poizvedbe SQL
+        $statement = $db->prepare("SELECT * FROM KNJIGA");
+
+        // izvedba poizvedbe
+        $statement->execute();
+
+        // zapis rezultata poizvedbe v spremenljivko
+        $allJokes = $statement->fetchAll();
+
+        // Rezultat ,ki ga vrne PDO, lahko vidimo, če odkomentiramo spodnjo vrstico
+        var_dump($allJokes);
+        // exit();
+    } catch (PDOException $e) {
+        echo "Prišlo je do napake: {$e->getMessage()}";
+        exit();
+    }
+
+
+
+}
+*/
+?>
 @include('partials.header')
 
 <div class="container-fluid" >
