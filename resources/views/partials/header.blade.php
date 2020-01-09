@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,8 +21,8 @@
                     User Management <i class="fas fa-user"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{route('user.signup')}}">Sign up</a>
-                    <a class="dropdown-item" href="#">Sign in</a>
+                    <a class="dropdown-item" href="{{route('register')}}">Sign up</a>
+                    <a class="dropdown-item" href="{{route('user.signin')}}">Sign in</a>
 
                 </div>
             </li>
@@ -29,3 +30,4 @@
 
     </div>
 </nav>
+

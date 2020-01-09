@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -25,7 +26,7 @@ class UserController extends Controller
 
         $user = new User([
             'username' => $un,
-            'pword' => bcrypt($pw),
+            'password' => bcrypt($pw),
             'email' => $em,
             'vloga' => 1,
             'idUser' => NULL
@@ -34,5 +35,30 @@ class UserController extends Controller
         return redirect()->route('product.index');
        //var_dump($user);
 
+    }
+
+    public function getSignin(){
+        return view('user.signin');
+    }
+
+    public function postSignin(Request $request){
+        $this->validate($request,[
+            'username' => 'required',
+            'password' => 'required|min:4'
+        ]);
+        $data = ($request->all());
+        $un = $data['username'];
+        $pw = $data['password'];
+       if(Auth::attempt(['username' => $un, 'password' => $pw])){
+           echo("stima");
+            return redirect()->route('user.profile');
+        }
+       echo("hajme");
+       return redirect()->route('product.index');
+    }
+
+    public function getProfile(){
+
+        return view('user.profile');
     }
 }
