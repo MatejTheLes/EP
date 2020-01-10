@@ -17,8 +17,8 @@
                             <span class="label label-success">{{$product['price']}}</span>
 
 
-                                    <li><a href="#" >Reduce by 1</a> </li>
-                                    <li><a href="#" >Reduce all</a> </li>
+                                    <li><a href="{{ route('product.reduceByOne', ['id' => $product['id']]) }}" >Remove one</a> </li>
+                                    <li><a href="{{ route('product.remove', ['id' => $product['id']]) }}" >Remove all</a> </li>
 
 
 

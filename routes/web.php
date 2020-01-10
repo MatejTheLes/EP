@@ -31,6 +31,17 @@ Route::get('/checkout', [
 ]);
 
 
+Route::get('/remove/{id}', [
+    'uses' => 'ProductController@getReduceByOne',
+    'as' => 'product.reduceByOne',
+]);
+
+Route::get('/reduce/{id}', [
+    'uses' => 'ProductController@getRemoveItem',
+    'as' => 'product.remove',
+]);
+
+
 Route::get('/shopping-cart', [
     'uses' => 'ProductController@getCart',
     'as' => 'product.shoppingCart'
@@ -64,6 +75,8 @@ Route::get('/user/profile', [
     'as' =>'user.profile',
     'middleware' =>'auth'
 ]);
+
+
 
 Auth::routes();
 

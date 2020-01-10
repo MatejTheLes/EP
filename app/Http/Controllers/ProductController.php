@@ -59,6 +59,42 @@ class ProductController extends Controller
     }
 
 
+    public function getReduceByOne($id){
+        $product = Book::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeOne($id);
+
+
+        if(count($cart ->items) > 0){
+            Session::put('cart', $cart);
+        }
+        else{
+            Session::forget('cart');
+        }
+
+        return redirect()->route('product.shoppingCart');
+
+    }
+
+    public function getRemoveItem($id){
+        $product = Book::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+
+        if(count($cart ->items) > 0){
+            Session::put('cart', $cart);
+        }
+        else{
+            Session::forget('cart');
+        }
+
+        return redirect()->route('product.shoppingCart');
+
+    }
+
+
     public function getCheckout(){
         if(!Session::has('cart')){
             return view('shop.shopping-cart');
@@ -69,6 +105,9 @@ class ProductController extends Controller
         $total = $cart->totalPrice;
 
         $cena = $cart->totalPrice;
+        if($cena>0){
+
+        }
         $user = Auth::user();
         $uid = $user['id'];
         $date = date('m/d/Y h:i:s', time());
