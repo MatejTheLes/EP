@@ -17,7 +17,8 @@
                         <p class="description">{{ $book['OPISKNJIGE'] }}</p>
                         <div class="clearfix">
                             <div class="pull-left price">{{ $book['CENA'] }}€</div>
-                            <a href="#" class="btn btn-success pull-right" role="button">Add to Cart</a>
+
+                            <a href="{{ route('product.addToCart', ['id' => $book['ID']]) }}" class="btn btn-success pull-right" role="button">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -26,10 +27,4 @@
         </div>
     @endforeach
 
-
-
-
-
-    </div>
 @endsection
-

@@ -17,6 +17,13 @@ Route::get('/', [  /* ko prvič naložimo stran dobimo vse knjige */
 
 ]);
 
+
+Route::get('/add-to-cart/{id}', [
+    'uses' => 'ProductController@getAddToCart',
+    'as' => 'product.addToCart'
+]);
+
+
 Route::get('/signup',[
     'uses' => 'UserController@getSignup',
     'as' => 'user.signup'
@@ -31,18 +38,21 @@ Route::post('/signup',[
 Route::get('/signin',[
     'uses' => 'UserController@getSignin',
     'as' => 'user.signin'
+
 ]);
 
-Route::post('/signin',[
+Route::post('/login',[
     'uses' => 'UserController@postSignin',
     'as' => 'user.signin'
 ]);
 
 Route::get('/user/profile', [
     'uses' => 'UserController@getProfile',
-    'as' =>'user.profile'
+    'as' =>'user.profile',
+    'middleware' =>'auth'
 ]);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

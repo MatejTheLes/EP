@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="{{route('product.index')}}">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,8 +21,24 @@
                     User Management <i class="fas fa-user"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{route('register')}}">Sign up</a>
-                    <a class="dropdown-item" href="{{route('user.signin')}}">Sign in</a>
+
+
+                    @if(Auth::check())
+                        <a class="dropdown-item" href="{{route('user.profile')}}">Account overview</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                    @else
+                        <a class="dropdown-item" href="{{route('register')}}">Sign up</a>
+                        <a class="dropdown-item" href="{{route('login')}}">Sign in</a>
+                    @endif
+
+
+
 
                 </div>
             </li>
