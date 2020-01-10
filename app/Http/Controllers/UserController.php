@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
+use App\Order;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
@@ -53,12 +55,20 @@ class UserController extends Controller
            echo("stima");
             return redirect()->route('user.profile');
         }
-       echo("hajme");
+
        return redirect()->route('product.index');
     }
 
     public function getProfile(){
-
-        return view('user.profile');
+        $user = Auth::user();
+        $uid = $user['id'];
+        $orders = Order::where('userId', $uid) -> get();
+        $orders->transform(function($order, $key){
+            $order->cart = unserialize($order->cart);
+            //dd($order);
+            return $order;
+        });
+       // dd($orders);
+        return view('user.profile',['orders' => $orders]);
     }
 }

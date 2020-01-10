@@ -2,7 +2,38 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-md-offset-2">
             <h1>User Profile</h1>
+            <hr>
+            <h2>My orders</h2>
+            @foreach($orders as $order)
+            <div class="card card-default">
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach($order->cart->items as $item)
+                        <li class="list-group-item">{{$item['naslov']}}
+                            <p>x{{$item['qty']}}</p>
+
+
+                        </li>
+
+                        @endforeach
+                    </ul>
+                </div>
+                <p>{{ ($order['created_at']) }}</p>
+                @if(($order['status']) == 0)
+                    <p> Status: Pending</p>
+                @elseif(($order['status']) == 2)
+                    <p> Status: Processed successfully</p>
+                @else
+                    <p> Status: Order storno</p>
+                @endif
+                <div class="card-footer">
+                    <strong> {{$order->cart->totalPrice}}€ </strong>
+                </div>
+
+            </div>
+            @endforeach
         </div>
     </div>
+    @endsection

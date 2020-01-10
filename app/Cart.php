@@ -21,7 +21,10 @@ class Cart{
     }
 
     public function add($item, $id){
-        $storedItem = ['id' => $id,'qty' => 0, 'price'=>$item->price, 'item' => $item];
+
+        $nasl = $item['NASLOV'];
+
+        $storedItem = ['id' => $id,'qty' => 0, 'price'=>$item->price, 'item' => $item, 'naslov' => $nasl];
         if($this -> items){
             if(array_key_exists($id, $this -> items)){
                 $storedItem = $this->items[$id];

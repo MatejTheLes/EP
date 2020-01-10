@@ -7,6 +7,8 @@ use App\Author;
 use App\Book;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
+use App\Order;
 
 class ProductController extends Controller
 {
@@ -37,7 +39,55 @@ class ProductController extends Controller
 
         $request->session()->put('cart', $cart);
 
+        //$user = Auth::user();
+        //dd($user['id']);
+        //dd($request -> session()->get('cart'));
 
-        return redirect()->route('user.profile');
+        return redirect()->route('product.index');
+    }
+
+
+    public function getCart(){
+        if(!Session::has('cart')){
+            return view('shop.shopping-cart');
+        }
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
+        return view('shop.shopping-cart', ['products' => $cart->items, 'totalPrice' => $cart ->totalPrice]);
+    }
+
+
+    public function getCheckout(){
+        if(!Session::has('cart')){
+            return view('shop.shopping-cart');
+        }
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
+
+        $cena = $cart->totalPrice;
+        $user = Auth::user();
+        $uid = $user['id'];
+        $date = date('m/d/Y h:i:s', time());
+        //dd($cena);
+        //dd($uid);
+        //dd($date);
+
+
+        $order = new Order();
+        $order->cart = serialize($cart);
+        //$order->date = date('m/d/Y h:i:s', time());
+        $order->userId = $uid;
+        $order->status = 0;
+
+        //dd($order);
+        $order -> save();
+
+
+        Session::forget('cart');
+        return view('shop.checkout', ['total'=>$total]);
     }
 }

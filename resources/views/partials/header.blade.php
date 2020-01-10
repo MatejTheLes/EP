@@ -11,7 +11,9 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Shopping cart <i class="fas fa-cart-plus"></i></a>
+                <a class="nav-link" href="{{route('product.shoppingCart')}}"> <i class="fas fa-cart-plus"></i>Shopping cart
+                    <span class="badge"> {{Session::has('cart') ? Session::get('cart')->totalQty: ''}}</span>
+                </a>
             </li>
 
 
