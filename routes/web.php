@@ -53,6 +53,16 @@ Route::get('/signup',[
     'as' => 'user.signup'
 ]);
 
+Route::get('/user/change',[
+    'uses' => 'UserController@getChangeCredentials',
+    'as' => 'user.change'
+]);
+
+
+Route::post('/user/change', 'UserController@updateAccount')->name('user.update');
+
+Route::post('account', 'AccountSettingsController@updateAccount');
+
 Route::post('/signup',[
     'uses' => 'UserController@postSignup',
     'as' => 'user.signup'

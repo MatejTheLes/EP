@@ -71,4 +71,23 @@ class UserController extends Controller
        // dd($orders);
         return view('user.profile',['orders' => $orders]);
     }
+
+
+    public function getChangeCredentials(){
+        return view('auth.change-credentials');
+    }
+
+    public function updateAccount(Request $request){
+        //dd($request->all());  //to check all the datas dumped from the form
+        //if your want to get single element,someName in this case
+        //$someName = $request->someName;
+        $user = Auth::user();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+    }
+
+
 }

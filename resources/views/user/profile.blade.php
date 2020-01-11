@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="row">
+        <a type="button" class="btn btn-success" href="{{ route('user.change') }}"> Change</a>
         <div class="col-md-4 col-md-offset-2">
             <h1>User Profile</h1>
             <hr>
