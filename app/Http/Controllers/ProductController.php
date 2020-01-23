@@ -24,8 +24,6 @@ class ProductController extends Controller
             $count++;
         }
 
-
-
         return view('shop.index', ['books' => $books]);
     }
 

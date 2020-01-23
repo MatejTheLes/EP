@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('title')
     Amazing Book Store
 @endsection

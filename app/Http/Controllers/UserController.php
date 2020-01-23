@@ -69,7 +69,16 @@ class UserController extends Controller
             return $order;
         });
        // dd($orders);
-        return view('user.profile',['orders' => $orders]);
+
+        if(Auth::user()){
+            $user = Auth::user();
+            $ajdi = $user['vloga'];
+        }
+
+        else{
+            $ajdi = 4;
+        }
+        return view('user.profile',['orders' => $orders, 'userid' => $ajdi]);
     }
 
 
