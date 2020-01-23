@@ -78,6 +78,24 @@ class UserController extends Controller
         else{
             $ajdi = 4;
         }
+
+
+        if($ajdi == 3){ //če smo administrator ni potrebe pošiljati naročil okoli, le seznam vseh prodajalcev
+            $seznamProdajalcev = User::where('vloga', 2) -> get();
+            return view('user.profile',['prodajalci' => $seznamProdajalcev, 'userid' => $ajdi]);
+
+        }
+        if($ajdi == 2){ //če smo administrator ni potrebe pošiljati naročil okoli, le seznam vseh prodajalcev
+            $seznamNarocil = Order::all();
+            $seznamNarocil->transform(function($order, $key){
+                $order->cart = unserialize($order->cart);
+                //dd($order);
+                return $order;
+            });
+           // dd($seznamNarocil);
+            return view('user.profile',['narocila' => $seznamNarocil, 'userid' => $ajdi]);
+
+        }
         return view('user.profile',['orders' => $orders, 'userid' => $ajdi]);
     }
 
@@ -98,5 +116,26 @@ class UserController extends Controller
         $user->save();
     }
 
+
+    public function deleteUser($id){
+        User::where('id', $id) -> delete();
+        return redirect()->route('user.profile');
+    }
+
+    public function getUpdateSales($id){
+        return view('auth.change-sales-credentials',['id' => $id]);
+    }
+
+
+    public function updateSales($id, Request $request){
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        $user = User::where('id', $id) -> first();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+        return redirect()->route('user.profile');
+    }
 
 }

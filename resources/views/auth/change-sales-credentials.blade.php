@@ -12,11 +12,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Change your credentials</div>
+                    <div class="card-header">Change Salesman's credentials</div>
 
                     <div class="card-body">
-                        <form action="{{route('user.update')}}" method="post">
+                        <form action="{{route('user.changeSalesUpdate', ['id' => $id])}}" method="post">
                             @csrf
+
+
                             <div class="alert alert-info" role="alert">
                                 Here you can update your credentials! Both fields are necessary; if you do not wish to update either of them just type the current email or password.
                             </div>

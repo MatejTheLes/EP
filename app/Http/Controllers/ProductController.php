@@ -127,4 +127,34 @@ class ProductController extends Controller
         Session::forget('cart');
         return view('shop.checkout', ['total'=>$total]);
     }
+
+
+    public function updateSales($id, Request $request){
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        $user = User::where('id', $id) -> first();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+        return redirect()->route('user.profile');
+    }
+
+
+
+    public function confirmOrder($id){
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        $order = Order::where('id', $id) -> first();
+        $order['status'] = 2;
+        $order->save();
+        return redirect()->route('user.profile');
+    }
+
+    public function declineOrder($id){
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        $order = Order::where('id', $id) -> first();
+        $order['status'] = 1;
+        $order->save();
+        return redirect()->route('user.profile');
+    }
 }

@@ -58,6 +58,30 @@ Route::get('/user/change',[
     'as' => 'user.change'
 ]);
 
+Route::get('/user/changeSales/{id}',[
+    'uses' => 'UserController@getUpdateSales',
+    'as' => 'user.changeSales'
+]);
+
+Route::post('/user/changeSales/{id}', 'UserController@updateSales')->name('user.changeSalesUpdate');
+
+
+
+Route::get('/remove/{id}', [
+    'uses' => 'UserController@deleteUser',
+    'as' => 'user.delete',
+]);
+
+Route::get('/orderconfirm/{id}', [
+    'uses' => 'ProductController@confirmOrder',
+    'as' => 'order.confirm',
+]);
+
+Route::get('/orderdecline/{id}', [
+    'uses' => 'ProductController@declineOrder',
+    'as' => 'order.decline',
+]);
+
 
 Route::post('/user/change', 'UserController@updateAccount')->name('user.update');
 
