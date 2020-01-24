@@ -125,11 +125,93 @@ class UserController extends Controller
     public function getUpdateSales($id){
         return view('auth.change-sales-credentials',['id' => $id]);
     }
+    public function getCreateSales(){
+        return view('auth.create-sales');
+    }
+    public function getCreateCustomer(){
+        return view('auth.create-customer');
+    }
 
 
     public function updateSales($id, Request $request){
         //return view('auth.change-sales-credentials',['id' => $id]);
         $user = User::where('id', $id) -> first();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+        return redirect()->route('user.profile');
+    }
+
+    public function createSales(Request $request){
+
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        if($this->validate($request,[
+            'sales_email' => 'email|required',
+            'sales_name' => 'required',
+            'sales_password' => 'required|min:4'
+        ])){
+            $data = ($request->all());
+            $un = $data['sales_name'];
+            $pw = $data['sales_password'];
+            $em = $data['sales_email'];
+            $user = new User();
+            $user['name'] = $un;
+            $user['password'] = bcrypt($pw);
+            $user['email'] = $em;
+            $user['vloga'] = 2;
+            $user->save();
+            return redirect()->route('user.profile');
+        }
+
+       else{
+           Redirect::back()->withErrors(['msg', 'The Message']);
+       }
+
+
+
+
+       $user = new User();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+        return redirect()->route('user.profile');
+    }
+
+
+
+    public function createCustomer(Request $request){
+
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        if($this->validate($request,[
+            'sales_email' => 'email|required',
+            'sales_name' => 'required',
+            'sales_password' => 'required|min:4'
+        ])){
+            $data = ($request->all());
+            $un = $data['sales_name'];
+            $pw = $data['sales_password'];
+            $em = $data['sales_email'];
+            $user = new User();
+            $user['name'] = $un;
+            $user['password'] = bcrypt($pw);
+            $user['email'] = $em;
+            $user['vloga'] = 1;
+            $user->save();
+            return redirect()->route('user.profile');
+        }
+
+        else{
+            Redirect::back()->withErrors(['msg', 'The Message']);
+        }
+
+
+
+
+        $user = new User();
         $newMail = $request['new_email'];
         $newPw = $request['new_password'];
         $user['email'] = $newMail;

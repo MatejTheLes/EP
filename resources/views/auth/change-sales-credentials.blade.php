@@ -20,7 +20,7 @@
 
 
                             <div class="alert alert-info" role="alert">
-                                Here you can update your credentials! Both fields are necessary; if you do not wish to update either of them just type the current email or password.
+                                Here you can update the salesman's credentials! Both fields are necessary; if you do not wish to update either of them just type the current email or password.
                             </div>
 
                             <div class="form-group row">
