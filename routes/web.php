@@ -11,6 +11,16 @@
 |
 */
 
+Route::get('/removeitem/{id}', [
+    'uses' => 'ProductController@getReduceByOne',
+    'as' => 'product.reduceByOne',
+]);
+
+Route::get('/reduceitem/{id}', [
+    'uses' => 'ProductController@getRemoveItem',
+    'as' => 'product.remove',
+]);
+
 Route::get('/', [  /* ko prvič naložimo stran dobimo vse knjige */
     'uses' => 'ProductController@getIndex',
     'as' => 'product.index'
@@ -31,15 +41,7 @@ Route::get('/checkout', [
 ]);
 
 
-Route::get('/remove/{id}', [
-    'uses' => 'ProductController@getReduceByOne',
-    'as' => 'product.reduceByOne',
-]);
 
-Route::get('/reduce/{id}', [
-    'uses' => 'ProductController@getRemoveItem',
-    'as' => 'product.remove',
-]);
 
 
 Route::get('/shopping-cart', [

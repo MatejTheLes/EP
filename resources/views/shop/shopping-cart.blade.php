@@ -14,11 +14,11 @@
                         <li class="list-group-item">
                             <span class="badge">{{ $product['qty'] }} x </span>
                             <strong>{{$product['naslov']}}</strong>
-                            <span class="label label-success">{{$product['price']}}</span>
+                            <span class="label label-success">{{$product['price']}} €</span>
 
 
-                                    <li><a href="{{ route('product.reduceByOne', ['id' => $product['id']]) }}" >Remove one</a> </li>
-                                    <li><a href="{{ route('product.remove', ['id' => $product['id']]) }}" >Remove all</a> </li>
+                                    <li><a href="{{ route('product.reduceByOne', ['id' => $product['id']]) }}" >Remove one</a>   l   <a href="{{ route('product.remove', ['id' => $product['id']]) }}" >Remove all</a>  </li>
+
 
 
 
@@ -29,7 +29,7 @@
 
         <div class = "row">
             <div class="col-sm-6 col-md-6">
-                <strong>Total: {{$totalPrice}}</strong>
+                <strong>Total: {{$totalPrice}} €</strong>
             </div>
         </div>
         <hr>
