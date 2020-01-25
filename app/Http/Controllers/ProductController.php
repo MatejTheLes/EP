@@ -14,6 +14,8 @@ class ProductController extends Controller
 {
     public function getIndex(){
         $books2 = Book::all();
+        $usr = Auth::user();
+        $vlogauser = $usr['vloga'];
         $books = $books2; //moramo ustvariti novo kopijo for some reason
         $count = 0;
         foreach ($books2 as $kng){
@@ -23,8 +25,8 @@ class ProductController extends Controller
             $books[$count]->IMEAVTOR = $imeAvt;
             $count++;
         }
-
-        return view('shop.index', ['books' => $books]);
+        var_dump($vlogauser);
+        return view('shop.index', ['books' => $books, 'vloga' => $vlogauser]);
     }
 
 
@@ -157,4 +159,114 @@ class ProductController extends Controller
         $order->save();
         return redirect()->route('user.profile');
     }
+
+
+    public function getCreateProduct(){
+        return view('shop.create-product');
+    }
+
+
+
+
+    public function createProduct(Request $request){
+
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        if($this->validate($request,[
+            'Author' => 'required',
+            'Description' => 'required',
+            'Price' => 'required|numeric|between:0.00,999.99',
+            'Title' => 'required|min:4'
+        ])){
+            $data = ($request->all());
+            $author = $data['Author'];
+            $desc = $data['Description'];
+            $price = $data['Price'];
+            $title = $data['Title'];
+            $avt = Author::where('imeAvtorja', $author) -> first();
+            if($avt){// smo našli avtorja !
+                $idAvtorja = $avt['IDAVTORJA'];
+                //dd($idAvtorja);
+                $newBook = new Book();
+                $newBook['idAvtorja'] = $idAvtorja;
+                $newBook['opisKnjige'] = $desc;
+                $newBook['cena'] = $price;
+                $newBook['naslov'] = $title;
+                $newBook -> save();
+                return redirect()->route('user.profile');
+            }
+            else{ // ni avtorja
+                $newAvtor = new Author();
+                $newAvtor['imeAvtorja'] = $author;
+                $newAvtor -> save();
+                $avt2 = Author::where('imeAvtorja', $author) -> first();
+                $idAvtorja = $avt2['IDAVTORJA'];
+                $newBook = new Book();
+                $newBook['idAvtorja'] = $idAvtorja;
+                $newBook['opisKnjige'] = $desc;
+                $newBook['cena'] = $price;
+                $newBook['naslov'] = $title;
+                $newBook -> save();
+                return redirect()->route('user.profile');
+            }
+
+        }
+
+        else{
+            Redirect::back()->withErrors(['msg', 'The Message']);
+        }
+
+    }
+
+
+    public function deleteItem($id){
+        Book::where('id', $id) -> delete();
+        return redirect()->route('product.index');
+    }
+
+
+    public function getEditProduct($id){
+        return view('shop.edit-product',['id' => $id]);
+    }
+
+
+    public function editProduct($id, Request $request){
+
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        if($this->validate($request,[
+            'Author' => 'required',
+            'Description' => 'required',
+            'Price' => 'required|numeric|between:0.00,999.99',
+            'Title' => 'required|min:4'
+        ])){
+            $data = ($request->all());
+            $author = $data['Author'];
+            $desc = $data['Description'];
+            $price = $data['Price'];
+            $title = $data['Title'];
+            $avt = Author::where('imeAvtorja', $author) -> first();
+            if($avt){// smo našli avtorja !
+                $idAvtorja = $avt['IDAVTORJA'];
+                Book::where('id','=',$id)->update(array('IDAVTORJA'=> $idAvtorja, 'OPISKNJIGE' => $desc, 'CENA' => $price, 'NASLOV' => $title));
+                //dd($baba);
+                return redirect()->route('product.index');
+            }
+            else{ // ni avtorja
+                $newAvtor = new Author();
+                $newAvtor['imeAvtorja'] = $author;
+                $newAvtor -> save();
+                $avt2 = Author::where('imeAvtorja', $author) -> first();
+                $idAvtorja = $avt2['IDAVTORJA'];
+                Book::where('id','=',$id)->update(array('IDAVTORJA'=> $idAvtorja, 'OPISKNJIGE' => $desc, 'CENA' => $price, 'NASLOV' => $title));
+                return redirect()->route('product.index');
+            }
+
+        }
+
+        else{
+            Redirect::back()->withErrors(['msg', 'The Message']);
+        }
+
+    }
+
+
 }

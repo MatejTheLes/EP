@@ -51,6 +51,7 @@
                 <h2> My account details</h2>
                 <button type="button" class="btn btn-secondary"><a style="color: white; text-decoration: none;" href="{{ route('user.change') }}"> Change</a></button>
                 <button type="button" class="btn btn-warning" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.getCreateCustomer') }}">Create Customer</a></button>
+                <button type="button" class="btn btn-warning" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('product.getCreateProduct') }}">Create Product</a></button>
                 <hr>
                 <h2>All orders</h2>
 

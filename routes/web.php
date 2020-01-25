@@ -75,9 +75,27 @@ Route::get('/remove/{id}', [
 ]);
 
 
+Route::get('/deleteitem/{id}', [
+    'uses' => 'ProductController@deleteItem',
+    'as' => 'product.deleteItem',
+]);
+
+
+
+
 Route::get('/createSales/', [
     'uses' => 'UserController@getCreateSales',
     'as' => 'user.getCreateSales',
+]);
+
+Route::get('/edititem/{id}', [
+    'uses' => 'ProductController@getEditProduct',
+    'as' => 'product.getEditProduct',
+]);
+
+Route::post('/edititem/{id}',[
+    'uses' => 'ProductController@editProduct',
+    'as' => 'product.editProduct'
 ]);
 
 Route::post('/createSales/',[
@@ -93,6 +111,17 @@ Route::post('/createCustomer/',[
     'uses' => 'UserController@createCustomer',
     'as' => 'user.createCustomer'
 ]);
+
+
+Route::get('/createProduct/', [
+    'uses' => 'ProductController@getCreateProduct',
+    'as' => 'product.getCreateProduct',
+]);
+Route::post('/createProduct/',[
+    'uses' => 'ProductController@createProduct',
+    'as' => 'product.createProduct'
+]);
+
 
 
 Route::get('/orderconfirm/{id}', [
