@@ -25,7 +25,6 @@ class ProductController extends Controller
             $books[$count]->IMEAVTOR = $imeAvt;
             $count++;
         }
-        var_dump($vlogauser);
         return view('shop.index', ['books' => $books, 'vloga' => $vlogauser]);
     }
 
@@ -192,7 +191,7 @@ class ProductController extends Controller
                 $newBook['cena'] = $price;
                 $newBook['naslov'] = $title;
                 $newBook -> save();
-                return redirect()->route('user.profile');
+                return redirect()->route('product.index');
             }
             else{ // ni avtorja
                 $newAvtor = new Author();
@@ -206,7 +205,7 @@ class ProductController extends Controller
                 $newBook['cena'] = $price;
                 $newBook['naslov'] = $title;
                 $newBook -> save();
-                return redirect()->route('user.profile');
+                return redirect()->route('product.index');
             }
 
         }

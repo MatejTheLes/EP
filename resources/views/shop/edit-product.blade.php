@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Create New customer</div>
+                    <div class="card-header">Edit existing item</div>
 
                     <div class="card-body">
                         <form action="{{route('product.editProduct', ['id' => $id])}}" method="post">
@@ -20,7 +20,7 @@
 
 
                             <div class="alert alert-info" role="alert">
-                                Here you can create a new customer account
+                                Here you can edit all information regarding an item.
                             </div>
                             @if($errors->any())
                                 <div class="alert alert-danger" role="alert">{{$errors->first()}}</div>
@@ -64,7 +64,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Create Customer
+                                        Update Item
                                     </button>
                                 </div>
                             </div>
