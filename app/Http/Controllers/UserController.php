@@ -69,7 +69,34 @@ class UserController extends Controller
             return $order;
         });
        // dd($orders);
-        return view('user.profile',['orders' => $orders]);
+
+        if(Auth::user()){
+            $user = Auth::user();
+            $ajdi = $user['vloga'];
+        }
+
+        else{
+            $ajdi = 4;
+        }
+
+
+        if($ajdi == 3){ //če smo administrator ni potrebe pošiljati naročil okoli, le seznam vseh prodajalcev
+            $seznamProdajalcev = User::where('vloga', 2) -> get();
+            return view('user.profile',['prodajalci' => $seznamProdajalcev, 'userid' => $ajdi]);
+
+        }
+        if($ajdi == 2){ //če smo administrator ni potrebe pošiljati naročil okoli, le seznam vseh prodajalcev
+            $seznamNarocil = Order::all();
+            $seznamNarocil->transform(function($order, $key){
+                $order->cart = unserialize($order->cart);
+                //dd($order);
+                return $order;
+            });
+           // dd($seznamNarocil);
+            return view('user.profile',['narocila' => $seznamNarocil, 'userid' => $ajdi]);
+
+        }
+        return view('user.profile',['orders' => $orders, 'userid' => $ajdi]);
     }
 
 
@@ -89,5 +116,108 @@ class UserController extends Controller
         $user->save();
     }
 
+
+    public function deleteUser($id){
+        User::where('id', $id) -> delete();
+        return redirect()->route('user.profile');
+    }
+
+    public function getUpdateSales($id){
+        return view('auth.change-sales-credentials',['id' => $id]);
+    }
+    public function getCreateSales(){
+        return view('auth.create-sales');
+    }
+    public function getCreateCustomer(){
+        return view('auth.create-customer');
+    }
+
+
+    public function updateSales($id, Request $request){
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        $user = User::where('id', $id) -> first();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+        return redirect()->route('user.profile');
+    }
+
+    public function createSales(Request $request){
+
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        if($this->validate($request,[
+            'sales_email' => 'email|required',
+            'sales_name' => 'required',
+            'sales_password' => 'required|min:4'
+        ])){
+            $data = ($request->all());
+            $un = $data['sales_name'];
+            $pw = $data['sales_password'];
+            $em = $data['sales_email'];
+            $user = new User();
+            $user['name'] = $un;
+            $user['password'] = bcrypt($pw);
+            $user['email'] = $em;
+            $user['vloga'] = 2;
+            $user->save();
+            return redirect()->route('user.profile');
+        }
+
+       else{
+           Redirect::back()->withErrors(['msg', 'The Message']);
+       }
+
+
+
+
+       $user = new User();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+        return redirect()->route('user.profile');
+    }
+
+
+
+    public function createCustomer(Request $request){
+
+        //return view('auth.change-sales-credentials',['id' => $id]);
+        if($this->validate($request,[
+            'sales_email' => 'email|required',
+            'sales_name' => 'required',
+            'sales_password' => 'required|min:4'
+        ])){
+            $data = ($request->all());
+            $un = $data['sales_name'];
+            $pw = $data['sales_password'];
+            $em = $data['sales_email'];
+            $user = new User();
+            $user['name'] = $un;
+            $user['password'] = bcrypt($pw);
+            $user['email'] = $em;
+            $user['vloga'] = 1;
+            $user->save();
+            return redirect()->route('user.profile');
+        }
+
+        else{
+            Redirect::back()->withErrors(['msg', 'The Message']);
+        }
+
+
+
+
+        $user = new User();
+        $newMail = $request['new_email'];
+        $newPw = $request['new_password'];
+        $user['email'] = $newMail;
+        $user['password'] = bcrypt($newPw);
+        $user->save();
+        return redirect()->route('user.profile');
+    }
 
 }

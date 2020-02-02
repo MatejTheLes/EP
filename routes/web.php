@@ -11,6 +11,16 @@
 |
 */
 
+Route::get('/removeitem/{id}', [
+    'uses' => 'ProductController@getReduceByOne',
+    'as' => 'product.reduceByOne',
+]);
+
+Route::get('/reduceitem/{id}', [
+    'uses' => 'ProductController@getRemoveItem',
+    'as' => 'product.remove',
+]);
+
 Route::get('/', [  /* ko prvič naložimo stran dobimo vse knjige */
     'uses' => 'ProductController@getIndex',
     'as' => 'product.index'
@@ -31,15 +41,7 @@ Route::get('/checkout', [
 ]);
 
 
-Route::get('/remove/{id}', [
-    'uses' => 'ProductController@getReduceByOne',
-    'as' => 'product.reduceByOne',
-]);
 
-Route::get('/reduce/{id}', [
-    'uses' => 'ProductController@getRemoveItem',
-    'as' => 'product.remove',
-]);
 
 
 Route::get('/shopping-cart', [
@@ -56,6 +58,80 @@ Route::get('/signup',[
 Route::get('/user/change',[
     'uses' => 'UserController@getChangeCredentials',
     'as' => 'user.change'
+]);
+
+Route::get('/user/changeSales/{id}',[
+    'uses' => 'UserController@getUpdateSales',
+    'as' => 'user.changeSales'
+]);
+
+Route::post('/user/changeSales/{id}', 'UserController@updateSales')->name('user.changeSalesUpdate');
+
+
+
+Route::get('/remove/{id}', [
+    'uses' => 'UserController@deleteUser',
+    'as' => 'user.delete',
+]);
+
+
+Route::get('/deleteitem/{id}', [
+    'uses' => 'ProductController@deleteItem',
+    'as' => 'product.deleteItem',
+]);
+
+
+
+
+Route::get('/createSales/', [
+    'uses' => 'UserController@getCreateSales',
+    'as' => 'user.getCreateSales',
+]);
+
+Route::get('/edititem/{id}', [
+    'uses' => 'ProductController@getEditProduct',
+    'as' => 'product.getEditProduct',
+]);
+
+Route::post('/edititem/{id}',[
+    'uses' => 'ProductController@editProduct',
+    'as' => 'product.editProduct'
+]);
+
+Route::post('/createSales/',[
+    'uses' => 'UserController@createSales',
+    'as' => 'user.createSales'
+]);
+
+Route::get('/createCustomer/', [
+    'uses' => 'UserController@getCreateCustomer',
+    'as' => 'user.getCreateCustomer',
+]);
+Route::post('/createCustomer/',[
+    'uses' => 'UserController@createCustomer',
+    'as' => 'user.createCustomer'
+]);
+
+
+Route::get('/createProduct/', [
+    'uses' => 'ProductController@getCreateProduct',
+    'as' => 'product.getCreateProduct',
+]);
+Route::post('/createProduct/',[
+    'uses' => 'ProductController@createProduct',
+    'as' => 'product.createProduct'
+]);
+
+
+
+Route::get('/orderconfirm/{id}', [
+    'uses' => 'ProductController@confirmOrder',
+    'as' => 'order.confirm',
+]);
+
+Route::get('/orderdecline/{id}', [
+    'uses' => 'ProductController@declineOrder',
+    'as' => 'order.decline',
 ]);
 
 

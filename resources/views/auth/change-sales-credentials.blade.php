@@ -12,26 +12,15 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-<<<<<<< HEAD
-                    <div class="card-header">Update Credentials</div>
-=======
-                    <div class="card-header">Change your credentials</div>
->>>>>>> 9c41b7e9c9a4e589a5b77204a095517c663307ed
+                    <div class="card-header">Change Salesman's credentials</div>
 
                     <div class="card-body">
-                        <form action="{{route('user.update')}}" method="post">
+                        <form action="{{route('user.changeSalesUpdate', ['id' => $id])}}" method="post">
                             @csrf
-<<<<<<< HEAD
 
 
-
-
-
-
-=======
->>>>>>> 9c41b7e9c9a4e589a5b77204a095517c663307ed
                             <div class="alert alert-info" role="alert">
-                                Here you can update your credentials! Both fields are necessary; if you do not wish to update either of them just type the current email or password.
+                                Here you can update the salesman's credentials! Both fields are necessary; if you do not wish to update either of them just type the current email or password.
                             </div>
 
                             <div class="form-group row">
