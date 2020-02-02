@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import java.util.*
+import java.util.* //adapterji so mejha
+//adapterji so mehanizmi ki iz seznama objektov povejo kak se ena vrstica izriše
 
 class BookAdapter(context: Context) : ArrayAdapter<Book>(context, 0, ArrayList()) {
 

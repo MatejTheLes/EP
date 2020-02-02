@@ -39,19 +39,30 @@ class BookDetailActivity : AppCompatActivity(), Callback<Book> {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val id = intent.getIntExtra("ep.rest.id", 0)
+        val id = intent.getIntExtra("ep.rest.id", 0) //preberi parameter id
 
-        if (id > 0) {
-            BookService.instance.get(id).enqueue(this)
+        if (id > 0) { //če smo uspeli dobit id, pošlji poizvedbo na strežnik
+            BookService.instance.get(id).enqueue(this) //kje dobimo ta rezultat? v callback ali  v onresponse (vse oke) ali v onfaulire (slabo)
         }
     }
 
     private fun deleteBook() {
-        // todo
+        book?.let {
+            BookService.instance.delete(it.id).enqueue(object : Callback<Void?> {
+                override fun onFailure(call: Call<Void?>, t: Throwable) {
+                    Log.w(TAG, "Napaka: ${t.localizedMessage}")
+                }
+
+                override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
+                    startActivity(Intent(this@BookDetailActivity, MainActivity::class.java))
+                }
+            })
+        }
+
     }
 
     override fun onResponse(call: Call<Book>, response: Response<Book>) {
-        book = response.body()
+        book = response.body() //tu je ze sparsana knjiga
         Log.i(TAG, "Got result: $book")
 
         if (response.isSuccessful) {

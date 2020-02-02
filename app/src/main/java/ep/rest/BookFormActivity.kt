@@ -14,11 +14,11 @@ class BookFormActivity : AppCompatActivity(), Callback<Void> {
 
     private var book: Book? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) { //definiramo kaj se zgodi ko damo butn save
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_form)
 
-        btnSave.setOnClickListener {
+        btnSave.setOnClickListener {  //tu shranimo knjigo, če knjiga ni null update, če knjiga (prejsnja) je null nardimo post
             val author = etAuthor.text.toString().trim()
             val title = etTitle.text.toString().trim()
             val description = etDescription.text.toString().trim()
@@ -34,8 +34,8 @@ class BookFormActivity : AppCompatActivity(), Callback<Void> {
             }
         }
 
-        val book = intent?.getSerializableExtra("ep.rest.book") as Book?
-        if (book != null) {
+        val book = intent?.getSerializableExtra("ep.rest.book") as Book? //ko startamo to aktivnost iz intent probamo prebrat
+        if (book != null) { //če book ni null nastavimo vsa polja na to kar je v tej knjigi napolnemo obrazec tako
             etAuthor.setText(book.author)
             etTitle.setText(book.title)
             etPrice.setText(book.price.toString())
