@@ -11,6 +11,9 @@
 |
 */
 
+use App\Author;
+use App\Book;
+use App\Http\Controllers\Article as ArticleController;
 Route::get('/removeitem/{id}', [
     'uses' => 'ProductController@getReduceByOne',
     'as' => 'product.reduceByOne',
@@ -161,6 +164,30 @@ Route::get('/user/profile', [
     'as' =>'user.profile',
     'middleware' =>'auth'
 ]);
+
+Route::get('/api/books', function(){
+   // return new ArticleController( Book::all());
+    $books2 = Book::all();
+    $books = $books2; //moramo ustvariti novo kopijo for some reason
+    $count = 0;
+    foreach ($books2 as $kng){
+        $ajdiAvtorja = $kng['IDAVTORJA']; //pridobimo id avtorja od knjige s tabele knjih
+        $idAvtorja = Author::where('idAvtorja', $ajdiAvtorja) -> get(); //dobimo objekt avtor z tem id
+        $imeAvt = ($idAvtorja[0]['IMEAVTORJA']); //uzamemo ime in ga dodamo objektu Book
+        $books[$count]->IDAVTORJA = $imeAvt;
+        $count++;
+    }
+    $jason = $books -> toJson();
+    return $jason;
+});
+
+Route::get('/api/books/{id}', function($id){
+    $knjiga = Book::where('id', $id)->first();
+    $avtor = Author::where('idAvtorja', $knjiga['IDAVTORJA'])->first();
+    $knjiga->IDAVTORJA = $avtor -> IMEAVTORJA;
+    return $knjiga;
+
+});
 
 
 
