@@ -785,6 +785,50 @@
         ]
     },
     {
+        "name": "ingria/laravel-x509-auth",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ingria/laravel-x509-auth.git",
+            "reference": "39636543a0ef2b74173cb4e83629d4b8417d0f8e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ingria/laravel-x509-auth/zipball/39636543a0ef2b74173cb4e83629d4b8417d0f8e",
+            "reference": "39636543a0ef2b74173cb4e83629d4b8417d0f8e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0.0"
+        },
+        "time": "2017-12-19T02:02:26+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Ingria\\LaravelX509Auth\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Codefuhrer",
+                "email": "codefuhrer@gmail.com"
+            }
+        ],
+        "description": "Laravel 5 Client Certificate auth middleware",
+        "keywords": [
+            "auth",
+            "certificate",
+            "laravel",
+            "x509"
+        ]
+    },
+    {
         "name": "jakub-onderka/php-console-color",
         "version": "v0.2",
         "version_normalized": "0.2.0.0",

@@ -89,6 +89,8 @@ Route::post('/user/changeSales/{id}', 'UserController@updateSales')->name('user.
 
 
 
+
+
 Route::get('/remove/{id}', [
     'uses' => 'UserController@deleteUser',
     'as' => 'user.delete',

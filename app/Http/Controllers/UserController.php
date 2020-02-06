@@ -52,7 +52,8 @@ class UserController extends Controller
         $un = $data['username'];
         $pw = $data['password'];
        if(Auth::attempt(['username' => $un, 'password' => $pw])){
-           echo("stima");
+           //echo("stima");
+
             return redirect()->route('user.profile');
         }
 
@@ -60,7 +61,24 @@ class UserController extends Controller
     }
 
     public function getProfile(){
+
         $user = Auth::user();
+        $vloga = $user['vloga'];
+        if($vloga == 2 || $vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+               // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
         $uid = $user['id'];
         $orders = Order::where('userId', $uid) -> get();
         $orders->transform(function($order, $key){
@@ -105,6 +123,25 @@ class UserController extends Controller
     }
 
     public function updateAccount(Request $request){
+
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+        if($vloga == 2 || $vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
         //dd($request->all());  //to check all the datas dumped from the form
         //if your want to get single element,someName in this case
         //$someName = $request->someName;
@@ -118,22 +155,145 @@ class UserController extends Controller
 
 
     public function deleteUser($id){
+
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+
+        if($vloga == 1 || $vloga == 2){
+            return redirect()->route('product.index');
+        }
+
+        if($vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
+
         User::where('id', $id) -> delete();
         return redirect()->route('user.profile');
     }
 
     public function getUpdateSales($id){
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+
+        if($vloga == 1){
+            return redirect()->route('product.index');
+        }
+
+        if($vloga == 2 || $vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
+
         return view('auth.change-sales-credentials',['id' => $id]);
     }
     public function getCreateSales(){
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+
+        if($vloga == 1 || $vloga == 2){
+            return redirect()->route('product.index');
+        }
+
+        if($vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
+
         return view('auth.create-sales');
     }
     public function getCreateCustomer(){
+
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+
+        if($vloga == 1){
+            return redirect()->route('product.index');
+        }
+
+        if($vloga == 2 || $vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
+
         return view('auth.create-customer');
     }
 
 
     public function updateSales($id, Request $request){
+
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+
+        if($vloga == 1){
+            return redirect()->route('product.index');
+        }
+
+        if($vloga == 2 || $vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
+
         //return view('auth.change-sales-credentials',['id' => $id]);
         $user = User::where('id', $id) -> first();
         $newMail = $request['new_email'];
@@ -145,6 +305,30 @@ class UserController extends Controller
     }
 
     public function createSales(Request $request){
+
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+
+        if($vloga == 1 || $vloga == 2 ){
+            return redirect()->route('product.index');
+        }
+
+        if($vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
 
         //return view('auth.change-sales-credentials',['id' => $id]);
         if($this->validate($request,[
@@ -184,6 +368,30 @@ class UserController extends Controller
 
 
     public function createCustomer(Request $request){
+
+        $user2 = Auth::user();
+        $vloga = $user2['vloga'];
+
+        if($vloga == 1){
+            return redirect()->route('product.index');
+        }
+
+        if($vloga == 2 || $vloga == 3) {
+            if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
+                // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
+
+                if ($user2['email'] != $_SERVER['SSL_CLIENT_S_DN_Email']) {
+                    Auth::logout();
+                    return redirect()->route('product.index');
+                }
+            }
+
+            else{
+                Auth::logout();
+                return redirect()->route('product.index');
+            }
+        }
+
 
         //return view('auth.change-sales-credentials',['id' => $id]);
         if($this->validate($request,[
