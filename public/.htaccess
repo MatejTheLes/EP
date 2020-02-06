@@ -3,6 +3,7 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    Options +FollowSymLinks
     RewriteEngine On
 
     # Handle Authorization Header
@@ -18,4 +19,64 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{THE_REQUEST} /login
+    RewriteRule ^ https://localhost/login [L,R=301]
+
+
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{THE_REQUEST} /register
+    RewriteRule ^ https://localhost/register [L,R=301]
+
+
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{THE_REQUEST} /checkout
+    RewriteRule ^ https://localhost/checkout [L,R=301]
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{THE_REQUEST} /user/*
+    RewriteRule ^ http://localhost/ [L,R=301]
+
+
+    RewriteCond %{HTTPS} off
+        RewriteCond %{THE_REQUEST} /orderconfirm/*
+        RewriteRule ^ http://localhost/ [L,R=301]
+
+    RewriteCond %{HTTPS} off
+        RewriteCond %{THE_REQUEST} /orderdecline/*
+        RewriteRule ^ http://localhost/ [L,R=301]
+
+     RewriteCond %{HTTPS} off
+         RewriteCond %{THE_REQUEST} /createProduct/*
+         RewriteRule ^ http://localhost/ [L,R=301]
+
+    RewriteCond %{HTTPS} off
+        RewriteCond %{THE_REQUEST} /createCustomer/*
+        RewriteRule ^ http://localhost/ [L,R=301]
+
+    RewriteCond %{HTTPS} off
+        RewriteCond %{THE_REQUEST} /createSales/*
+        RewriteRule ^ http://localhost/ [L,R=301]
+
+    RewriteCond %{HTTPS} off
+        RewriteCond %{THE_REQUEST} /edititem/*
+        RewriteRule ^ http://localhost/ [L,R=301]
+
+    RewriteCond %{HTTPS} off
+        RewriteCond %{THE_REQUEST} /deleteitem/*
+        RewriteRule ^ http://localhost/ [L,R=301]
+
+    RewriteCond %{HTTPS} off
+        RewriteCond %{THE_REQUEST} /remove/*
+        RewriteRule ^ http://localhost/ [L,R=301]
+
+
+
+
+
 </IfModule>
+
+

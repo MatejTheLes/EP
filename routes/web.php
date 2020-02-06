@@ -16,7 +16,8 @@ use App\Book;
 use App\Http\Controllers\Article as ArticleController;
 Route::get('/removeitem/{id}', [
     'uses' => 'ProductController@getReduceByOne',
-    'as' => 'product.reduceByOne',
+    'as' => 'product.reduceByOne'
+
 ]);
 
 Route::get('/reduceitem/{id}', [
@@ -27,6 +28,12 @@ Route::get('/reduceitem/{id}', [
 Route::get('/', [  /* ko prvič naložimo stran dobimo vse knjige */
     'uses' => 'ProductController@getIndex',
     'as' => 'product.index'
+
+]);
+
+Route::get('/authenticated', [  /* ko prvič naložimo stran dobimo vse knjige */
+    'uses' => 'ProductController@getIndex2',
+    'as' => 'product.index2'
 
 ]);
 
@@ -53,6 +60,14 @@ Route::get('/shopping-cart', [
 ]);
 
 
+Route::get('/authenticatedshoppingcart', [
+    'uses' => 'ProductController@getCart2',
+    'as' => 'product.shoppingCart2'
+]);
+
+
+
+
 Route::get('/signup',[
     'uses' => 'UserController@getSignup',
     'as' => 'user.signup'
@@ -60,12 +75,14 @@ Route::get('/signup',[
 
 Route::get('/user/change',[
     'uses' => 'UserController@getChangeCredentials',
-    'as' => 'user.change'
+    'as' => 'user.change',
+    'middleware' =>'auth'
 ]);
 
 Route::get('/user/changeSales/{id}',[
     'uses' => 'UserController@getUpdateSales',
-    'as' => 'user.changeSales'
+    'as' => 'user.changeSales',
+    'middleware' =>'auth'
 ]);
 
 Route::post('/user/changeSales/{id}', 'UserController@updateSales')->name('user.changeSalesUpdate');
@@ -75,12 +92,14 @@ Route::post('/user/changeSales/{id}', 'UserController@updateSales')->name('user.
 Route::get('/remove/{id}', [
     'uses' => 'UserController@deleteUser',
     'as' => 'user.delete',
+    'middleware' =>'auth'
 ]);
 
 
 Route::get('/deleteitem/{id}', [
     'uses' => 'ProductController@deleteItem',
     'as' => 'product.deleteItem',
+    'middleware' =>'auth'
 ]);
 
 
@@ -89,40 +108,48 @@ Route::get('/deleteitem/{id}', [
 Route::get('/createSales/', [
     'uses' => 'UserController@getCreateSales',
     'as' => 'user.getCreateSales',
+    'middleware' =>'auth'
 ]);
 
 Route::get('/edititem/{id}', [
     'uses' => 'ProductController@getEditProduct',
     'as' => 'product.getEditProduct',
+    'middleware' =>'auth'
 ]);
 
 Route::post('/edititem/{id}',[
     'uses' => 'ProductController@editProduct',
-    'as' => 'product.editProduct'
+    'as' => 'product.editProduct',
+    'middleware' =>'auth'
 ]);
 
 Route::post('/createSales/',[
     'uses' => 'UserController@createSales',
-    'as' => 'user.createSales'
+    'as' => 'user.createSales',
+    'middleware' =>'auth'
 ]);
 
 Route::get('/createCustomer/', [
     'uses' => 'UserController@getCreateCustomer',
     'as' => 'user.getCreateCustomer',
+    'middleware' =>'auth'
 ]);
 Route::post('/createCustomer/',[
     'uses' => 'UserController@createCustomer',
-    'as' => 'user.createCustomer'
+    'as' => 'user.createCustomer',
+    'middleware' =>'auth'
 ]);
 
 
 Route::get('/createProduct/', [
     'uses' => 'ProductController@getCreateProduct',
     'as' => 'product.getCreateProduct',
+    'middleware' =>'auth'
 ]);
 Route::post('/createProduct/',[
     'uses' => 'ProductController@createProduct',
-    'as' => 'product.createProduct'
+    'as' => 'product.createProduct',
+    'middleware' =>'auth'
 ]);
 
 
@@ -130,11 +157,13 @@ Route::post('/createProduct/',[
 Route::get('/orderconfirm/{id}', [
     'uses' => 'ProductController@confirmOrder',
     'as' => 'order.confirm',
+    'middleware' =>'auth'
 ]);
 
 Route::get('/orderdecline/{id}', [
     'uses' => 'ProductController@declineOrder',
     'as' => 'order.decline',
+    'middleware' =>'auth'
 ]);
 
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use Redirect;
+
 use App\Author;
 use App\Book;
 use Illuminate\Http\Request;
@@ -13,6 +15,25 @@ use App\Order;
 class ProductController extends Controller
 {
     public function getIndex(){
+        if(!Auth::guest()){
+            return Redirect::to('https://localhost/authenticated');
+        }
+        $books2 = Book::all();
+        $usr = Auth::user();
+        $vlogauser = $usr['vloga'];
+        $books = $books2; //moramo ustvariti novo kopijo for some reason
+        $count = 0;
+        foreach ($books2 as $kng){
+            $ajdiAvtorja = $kng['IDAVTORJA']; //pridobimo id avtorja od knjige s tabele knjih
+            $idAvtorja = Author::where('idAvtorja', $ajdiAvtorja) -> get(); //dobimo objekt avtor z tem id
+            $imeAvt = ($idAvtorja[0]['IMEAVTORJA']); //uzamemo ime in ga dodamo objektu Book
+            $books[$count]->IMEAVTOR = $imeAvt;
+            $count++;
+        }
+        return view('shop.index', ['books' => $books, 'vloga' => $vlogauser]);
+    }
+
+    public function getIndex2(){
         $books2 = Book::all();
         $usr = Auth::user();
         $vlogauser = $usr['vloga'];
@@ -47,6 +68,10 @@ class ProductController extends Controller
 
 
     public function getCart(){
+
+        if(!Auth::guest()){
+            return Redirect::to('https://localhost/authenticatedshoppingcart');
+        }
         if(!Session::has('cart')){
             return view('shop.shopping-cart');
         }
@@ -56,6 +81,19 @@ class ProductController extends Controller
 
         return view('shop.shopping-cart', ['products' => $cart->items, 'totalPrice' => $cart ->totalPrice]);
     }
+
+    public function getCart2(){
+        if(!Session::has('cart')){
+            return view('shop.shopping-cart');
+        }
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
+        return view('shop.shopping-cart', ['products' => $cart->items, 'totalPrice' => $cart ->totalPrice]);
+    }
+
+
 
 
     public function getReduceByOne($id){
