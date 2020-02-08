@@ -69,9 +69,9 @@
                     <div class="card card-default">
                         <div class="card-body">
                             <ul class="list-group">
-                                <li>Ime prodajalca: {{$stranka['name']}}</li>
-                                <li>E-mail prodajalca: {{$stranka['email']}}</li>
-                                <li>Vloga: {{$stranka['vloga']}}</li>
+                                <li>Customer name: {{$stranka['name']}}</li>
+                                <li>Customer E-mail: {{$stranka['email']}}</li>
+                                <li>Role: {{$stranka['vloga']}}</li>
                                 <button type="button" class="btn btn-success" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.changeSales', ['id' => $stranka['id'], 'vloga' => $stranka['vloga']]) }}">Update credentials</a></button>
                                 <button type="button" class="btn btn-danger" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.delete', ['id' => $stranka['id']]) }}">Delete Account</a></button>
 
@@ -148,9 +148,9 @@
                     <div class="card card-default">
                         <div class="card-body">
                             <ul class="list-group">
-                                <li>Ime prodajalca: {{$prodajalec['name']}}</li>
-                                <li>E-mail prodajalca: {{$prodajalec['email']}}</li>
-                                <li>Vloga: {{$prodajalec['vloga']}}</li>
+                                <li>Salesman name: {{$prodajalec['name']}}</li>
+                                <li>Salesman mail: {{$prodajalec['email']}}</li>
+                                <li>Role: {{$prodajalec['vloga']}}</li>
                                 <button type="button" class="btn btn-success" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.changeSales', ['id' => $prodajalec['id'], 'vloga' =>$prodajalec['vloga']]) }}">Update credentials</a></button>
                                 <button type="button" class="btn btn-danger" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.delete', ['id' => $prodajalec['id']]) }}">Delete Account</a></button>
 
