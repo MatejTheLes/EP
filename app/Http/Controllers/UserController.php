@@ -105,16 +105,20 @@ class UserController extends Controller
         }
         if($ajdi == 2){ //če smo administrator ni potrebe pošiljati naročil okoli, le seznam vseh prodajalcev
             $seznamNarocil = Order::all();
+            $seznamStrank = User::where('vloga', 1) -> get();
             $seznamNarocil->transform(function($order, $key){
                 $order->cart = unserialize($order->cart);
                 //dd($order);
                 return $order;
             });
            // dd($seznamNarocil);
-            return view('user.profile',['narocila' => $seznamNarocil, 'userid' => $ajdi]);
+            return view('user.profile',['narocila' => $seznamNarocil, 'userid' => $ajdi, 'stranke' => $seznamStrank]);
 
         }
-        return view('user.profile',['orders' => $orders, 'userid' => $ajdi]);
+        $userAddress=$user['address'];
+        $userCity=$user['city'];
+        $phone=$user['phone'];
+        return view('user.profile',['orders' => $orders, 'userid' => $ajdi, 'address' => $userAddress, 'city'=>$userCity, 'phone' =>$phone]);
     }
 
 
@@ -148,9 +152,17 @@ class UserController extends Controller
         $user = Auth::user();
         $newMail = $request['new_email'];
         $newPw = $request['new_password'];
+        $newCity = $request['new_city'];
+        $newAddress = $request['new_address'];
+        $newPhone = $request['new_phone'];
         $user['email'] = $newMail;
         $user['password'] = bcrypt($newPw);
+        $user['address'] = $newAddress;
+        $user['city'] = $newCity;
+        $user['phone'] = $newPhone;
         $user->save();
+        return redirect()->route('product.index');
+
     }
 
 
@@ -159,11 +171,11 @@ class UserController extends Controller
         $user2 = Auth::user();
         $vloga = $user2['vloga'];
 
-        if($vloga == 1 || $vloga == 2){
+        if($vloga == 1 ){
             return redirect()->route('product.index');
         }
 
-        if($vloga == 3) {
+        if($vloga == 3 || $vloga == 2) {
             if ($_SERVER['SSL_CLIENT_VERIFY'] != 'NONE') {
                 // var_dump($_SERVER['SSL_CLIENT_VERIFY']);
 
@@ -184,7 +196,7 @@ class UserController extends Controller
         return redirect()->route('user.profile');
     }
 
-    public function getUpdateSales($id){
+    public function getUpdateSales($id, $vloga2){
         $user2 = Auth::user();
         $vloga = $user2['vloga'];
 
@@ -209,7 +221,7 @@ class UserController extends Controller
         }
 
 
-        return view('auth.change-sales-credentials',['id' => $id]);
+        return view('auth.change-sales-credentials',['id' => $id, 'vloga'=>$vloga2]);
     }
     public function getCreateSales(){
         $user2 = Auth::user();
@@ -298,8 +310,14 @@ class UserController extends Controller
         $user = User::where('id', $id) -> first();
         $newMail = $request['new_email'];
         $newPw = $request['new_password'];
+        $newCity = $request['new_city'];
+        $newAddress = $request['new_address'];
+        $newPhone = $request['new_phone'];
         $user['email'] = $newMail;
         $user['password'] = bcrypt($newPw);
+        $user['address'] = $newAddress;
+        $user['city'] = $newCity;
+        $user['phone'] = $newPhone;
         $user->save();
         return redirect()->route('user.profile');
     }

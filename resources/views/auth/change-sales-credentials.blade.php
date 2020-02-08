@@ -12,7 +12,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Change Salesman's credentials</div>
+                    @if($vloga == 1)
+                        <div class="card-header">Change client's credentials</div>
+                    @else
+                        <div class="card-header">Change Salesman's credentials</div>
+                    @endif
+
 
                     <div class="card-body">
                         <form action="{{route('user.changeSalesUpdate', ['id' => $id])}}" method="post">
@@ -31,11 +36,36 @@
                                 </div>
                             </div>
 
+
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">New Email</label>
 
                                 <div class="col-md-6">
                                     <input id="new_email" type="text" class="form-control" name="new_email" autocomplete="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">New Address</label>
+
+                                <div class="col-md-6">
+                                    <input id="new_address" type="text" class="form-control" name="new_address" autocomplete="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">New City</label>
+
+                                <div class="col-md-6">
+                                    <input id="new_city" type="text" class="form-control" name="new_city" autocomplete="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">New Phone Number</label>
+
+                                <div class="col-md-6">
+                                    <input id="new_phone" type="text" class="form-control" name="new_phone" autocomplete="">
                                 </div>
                             </div>
 

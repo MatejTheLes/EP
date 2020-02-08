@@ -79,7 +79,7 @@ Route::get('/user/change',[
     'middleware' =>'auth'
 ]);
 
-Route::get('/user/changeSales/{id}',[
+Route::get('/user/changeSales/{id}/{vloga}',[
     'uses' => 'UserController@getUpdateSales',
     'as' => 'user.changeSales',
     'middleware' =>'auth'

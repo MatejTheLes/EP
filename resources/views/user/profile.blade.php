@@ -7,6 +7,16 @@
 
 
             @if($userid == 1)
+                @if($city == '' || $address = '')
+                    <div class="alert alert-info" role="alert">
+                        Do not forget to set your shipping address so we can know where to ship your orders!
+                    </div>
+                @endif
+                    @if($phone == '')
+                        <div class="alert alert-info" role="alert">
+                            Do not forget to set your phone number!
+                        </div>
+                    @endif
                 <h1>User Profile</h1>
                 <hr>
                 <h2> My account details</h2>
@@ -53,6 +63,27 @@
                 <button type="button" class="btn btn-warning" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.getCreateCustomer') }}">Create Customer</a></button>
                 <button type="button" class="btn btn-warning" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('product.getCreateProduct') }}">Create Product</a></button>
                 <hr>
+
+                <h2>Stranke</h2>
+                @foreach($stranke as $stranka)
+                    <div class="card card-default">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li>Ime prodajalca: {{$stranka['name']}}</li>
+                                <li>E-mail prodajalca: {{$stranka['email']}}</li>
+                                <li>Vloga: {{$stranka['vloga']}}</li>
+                                <button type="button" class="btn btn-success" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.changeSales', ['id' => $stranka['id'], 'vloga' => $stranka['vloga']]) }}">Update credentials</a></button>
+                                <button type="button" class="btn btn-danger" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.delete', ['id' => $stranka['id']]) }}">Delete Account</a></button>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                @endforeach
+
+
+
+
                 <h2>All orders</h2>
 
                 <hr>
@@ -120,7 +151,7 @@
                                 <li>Ime prodajalca: {{$prodajalec['name']}}</li>
                                 <li>E-mail prodajalca: {{$prodajalec['email']}}</li>
                                 <li>Vloga: {{$prodajalec['vloga']}}</li>
-                                <button type="button" class="btn btn-success" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.changeSales', ['id' => $prodajalec['id']]) }}">Update credentials</a></button>
+                                <button type="button" class="btn btn-success" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.changeSales', ['id' => $prodajalec['id'], 'vloga' =>$prodajalec['vloga']]) }}">Update credentials</a></button>
                                 <button type="button" class="btn btn-danger" style="width: 200px"><a style="color: white; text-decoration: none;" href="{{ route('user.delete', ['id' => $prodajalec['id']]) }}">Delete Account</a></button>
 
                             </ul>
