@@ -123,7 +123,9 @@ class UserController extends Controller
 
 
     public function getChangeCredentials(){
-        return view('auth.change-credentials');
+        $user = Auth::user();
+
+        return view('auth.change-credentials',['vloga' => $user['vloga']]);
     }
 
     public function updateAccount(Request $request){

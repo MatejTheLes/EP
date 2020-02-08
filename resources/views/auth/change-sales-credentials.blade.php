@@ -45,30 +45,32 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">New Address</label>
+                            @if($vloga == 1)
 
-                                <div class="col-md-6">
-                                    <input id="new_address" type="text" class="form-control" name="new_address" autocomplete="">
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">New Address</label>
+
+                                    <div class="col-md-6">
+                                        <input id="new_address" type="text" class="form-control" name="new_address" autocomplete="">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">New City</label>
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">New City</label>
 
-                                <div class="col-md-6">
-                                    <input id="new_city" type="text" class="form-control" name="new_city" autocomplete="">
+                                    <div class="col-md-6">
+                                        <input id="new_city" type="text" class="form-control" name="new_city" autocomplete="">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">New Phone Number</label>
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">New Phone Number</label>
 
-                                <div class="col-md-6">
-                                    <input id="new_phone" type="text" class="form-control" name="new_phone" autocomplete="">
+                                    <div class="col-md-6">
+                                        <input id="new_phone" type="text" class="form-control" name="new_phone" autocomplete="">
+                                    </div>
                                 </div>
-                            </div>
-
+                            @endif
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
